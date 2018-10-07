@@ -1,1 +1,1 @@
-# Overwatch Stat Manager
+# Overwatch Statistics Manager
