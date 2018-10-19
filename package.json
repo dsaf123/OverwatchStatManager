@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p process.env.OPENSHIFT_NODEJS_IP"
+    "start": "next start -p 8080"
   },
   "repository": {
     "type": "git",
