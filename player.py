@@ -30,9 +30,23 @@ for i in data['content']:
         ctr += 1
         tmpdata = [i['id'], i['handle'], i['name'], i['homeLocation'], i['attributes']['player_number'], i['attributes']['role'], i['headshot']]
         c.execute('insert into Player (PlayerID, Handle, Name, Location, PlayerNumber, Role, Picture) values (?,?,?,?,?,?,?)', tmpdata)
+    except:
+        pass
+for i in data['content']:
+    try:
+        print (ctr)
+        ctr += 1
         for j in i['teams']:
             tmdata = [j['team']['id'], j['team']['name'], j['team']['logo']]
             c.execute('insert into Team (TeamID, Name, Logo) values (?,?,?)', tmdata)
+
+    except:
+        pass
+for i in data['content']:
+    try:
+        print (ctr)
+        ctr += 1
+        for j in i['teams']:
             tdata =  [i['id'], j['team']['id']]
             c.execute('insert into PlayersTeam (PlayerID, TeamID) VALUES (?,?)', tdata)
     except:
