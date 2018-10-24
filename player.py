@@ -21,14 +21,23 @@ data = json.loads(response.read())
 
 db = create_connection("owdb.db")
 c = db.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Handle char(30), Name char(30), Location char(30), PlayerNumber int, Role char(10), Picture char(100))")
+c.execute("CREATE TABLE IF NOT EXISTS PlayersTeam (PlayerID int REFERENCES Player(PlayerID), TeamID int REFERENCES Team(TeamID), UNIQUE(PlayerID, TeamID))")
 ctr = 0
 for i in data['content']:
     try:
         print (ctr)
         ctr += 1
-        tmpdata = [i['id'], i['handle'], i['name'], i['homeLocation'], i['attributes']['player_number'], i['attributes']['role'], 0, 0, 0, 0, 0, i['teams'][-1]['team']['id']]
-        c.execute('insert into Player (PlayerID, Handle, Name, Location, PlayerNumber, Role, TotalKills, TotalDeaths, KDRatio, Ultimates, TotalTimePlayed, Team) values (?,?,?,?,?,?,?,?,?,?,?,?)', tmpdata)
+        tmpdata = [i['id'], i['handle'], i['name'], i['homeLocation'], i['attributes']['player_number'], i['attributes']['role'], i['headshot']]
+        #c.execute('insert into Player (PlayerID, Handle, Name, Location, PlayerNumber, Role, Picture) values (?,?,?,?,?,?,?)', tmpdata)
+        for j in i['teams']:
+
+            tdata =  [i['id'], j['team']['id']]
+            c.execute('insert into PlayersTeam (PlayerID, TeamID) VALUES (?,?)', tdata)
+            #tmdata = [j['team']['id'], j['team']['name']]
+            #c.execute('insert into Team (TeamID, Name) values (?,?)', tmdata)
     except:
+
         pass
 db.commit()
 db.close()
