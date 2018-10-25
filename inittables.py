@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -14,14 +15,10 @@ def create_connection(db_file):
 
     return None
 
+os.system('droptables.py')
+
 db = create_connection("owdb.db")
 c = db.cursor()
-dropList = ['DROP TABLE Player', 'DROP TABLE PlayersTeam', 'DROP TABLE Team', 'DROP TABLE Hero', 'DROP TABLE Coach', 'DROP TABLE Personel', 'DROP TABLE Match', 'DROP TABLE Map', 'DROP TABLE PlayedOn', 'DROP TABLE MapInstance']
-for i in dropList:
-    try:
-        c.execute(i)
-    except:
-        pass
 
 createList = ["CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Handle char(30), Name char(30), Location char(30), PlayerNumber int, Role char(10), Picture varchar)",
               "CREATE TABLE IF NOT EXISTS PlayersTeam (PlayerID int REFERENCES Player(PlayerID), TeamID int REFERENCES Team(TeamID), UNIQUE(PlayerID, TeamID))",
@@ -31,7 +28,7 @@ createList = ["CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Hand
               "CREATE TABLE IF NOT EXISTS MapInstance (Number int, MatchID REFERENCES Match (MatchID), Name varchar REFERENCES Map, Time int, Score char(10), PRIMARY KEY(Number, MatchID))",
               "CREATE TABLE IF NOT EXISTS PlayedOn(Match int, MapNumber int, Hero varchar, Player int REFERENCES Player(PlayerID), Damage float, Deaths int, Eliminations int, Healing float, FOREIGN KEY(Match, MapNumber) REFERENCES MapInstance, PRIMARY KEY(Match, MapNumber, Hero, Player))",
               "CREATE TABLE IF NOT EXISTS Coach (CoachID int PRIMARY KEY, Handle char(30), Name char(30), Team int REFERENCES Team(TeamID))",
-              "CREATE TABLE IF NOT EXISTS Personel (StageName char(30) PRIMARY KEY, Name varchar, Type varchar, Picture varchar)"]
+              "CREATE TABLE IF NOT EXISTS Personnel (StageName char(30) PRIMARY KEY, Name varchar, Type varchar, Picture varchar)"]
 
 for i in createList:
     c.execute(i)

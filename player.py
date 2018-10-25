@@ -21,9 +21,11 @@ data = json.loads(response.read())
 
 db = create_connection("owdb.db")
 c = db.cursor()
-c.execute("CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Handle char(30), Name char(30), Location char(30), PlayerNumber int, Role char(10), Picture char(100))")
-c.execute("CREATE TABLE IF NOT EXISTS PlayersTeam (PlayerID int REFERENCES Player(PlayerID), TeamID int REFERENCES Team(TeamID), UNIQUE(PlayerID, TeamID))")
+#c.execute("CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Handle char(30), Name char(30), Location char(30), PlayerNumber int, Role char(10), Picture char(100))")
+#c.execute("CREATE TABLE IF NOT EXISTS PlayersTeam (PlayerID int REFERENCES Player(PlayerID), TeamID int REFERENCES Team(TeamID), UNIQUE(PlayerID, TeamID))")
 ctr = 0
+
+#Insert Player Data
 for i in data['content']:
     try:
         print (ctr)
@@ -32,6 +34,8 @@ for i in data['content']:
         c.execute('insert into Player (PlayerID, Handle, Name, Location, PlayerNumber, Role, Picture) values (?,?,?,?,?,?,?)', tmpdata)
     except:
         pass
+
+#Insert Team Data
 for i in data['content']:
     try:
         print (ctr)
@@ -42,6 +46,8 @@ for i in data['content']:
 
     except:
         pass
+
+#Insert Teams Players have played on.
 for i in data['content']:
     try:
         print (ctr)
