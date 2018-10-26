@@ -1,7 +1,7 @@
 import Layout from '../components/MyLayout.js'
+import Link from 'next/link'
 
 export default () => (
-    <Layout>
-       <p>Hello Next.js</p>
-    </Layout>
+  <Layout>
+  </Layout>
 )
