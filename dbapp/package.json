@@ -12,6 +12,7 @@
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.4",
+    "node-pre-gyp": "^0.11.0",
     "sqlite3": "^4.0.3"
   }
 }

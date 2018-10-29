@@ -1,3 +1,4 @@
+.gitignore
 .vscode/
 sqlite3.exe
 owdb.db
