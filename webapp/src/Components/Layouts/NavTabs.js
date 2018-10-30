@@ -10,6 +10,7 @@ import ComparePlayers from "./ComparePlayers/ComparePlayers"
 
 
 
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>

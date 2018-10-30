@@ -29,44 +29,21 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(hero, elims, deaths, damage, healing, time) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein };
+  return { id, hero, elims, deaths, damage, healing, time };
 }
 
 const rows = [
-  createData('Ana', 159, 6.0, 24, 4.0),
-  createData('Bastion', 237, 9.0, 37, 4.3),
-  createData('Brigitte', 262, 16.0, 24, 6.0),
-  createData('D.Va', 305, 3.7, 67, 4.3),
-  createData('Doomfist', 356, 16.0, 49, 3.9),
-  createData('Genji', 159, 6.0, 24, 4.0),
-  createData('Hanzo', 237, 9.0, 37, 4.3),
-  createData('Junkrat', 262, 16.0, 24, 6.0),
-  createData('Lúcio', 305, 3.7, 67, 4.3),
-  createData('McCree', 356, 16.0, 49, 3.9),
-  createData('Mei', 159, 6.0, 24, 4.0),
-  createData('Mercy', 237, 9.0, 37, 4.3),
-  createData('Moira', 262, 16.0, 24, 6.0),
-  createData('Orisa', 305, 3.7, 67, 4.3),
-  createData('Pharah', 356, 16.0, 49, 3.9),
-  createData('Reaper', 159, 6.0, 24, 4.0),
-  createData('Reinhardt', 237, 9.0, 37, 4.3),
-  createData('Roadhog', 262, 16.0, 24, 6.0),
-  createData('Soldier: 76', 305, 3.7, 67, 4.3),
-  createData('Sombra', 356, 16.0, 49, 3.9),
-  createData('Symmetra', 159, 6.0, 24, 4.0),
-  createData('Torbjörn', 237, 9.0, 37, 4.3),
-  createData('Tracer', 262, 16.0, 24, 6.0),
-  createData('Widowmaker', 305, 3.7, 67, 4.3),
-  createData('Winston', 356, 16.0, 49, 3.9),
-  createData('Wrecking Ball', 305, 3.7, 67, 4.3),
-  createData('Zarya', 356, 16.0, 49, 3.9),
-  createData('Zenyatta', 159, 6.0, 24, 4.0),
+  createData('Winston', 356, 16.0, 49, 3.9, 345),
+  createData('Reinhardt', 237, 9.0, 37, 4.3, 304),
+  createData('Orisa', 305, 3.7, 67, 4.3, 205),
+  createData('Roadhog', 262, 16.0, 24, 6.0, 30),
+  createData('Wrecking Ball', 305, 3.7, 67, 4.3, 25),
+  createData('Brigitte', 305, 3.7, 67, 4.3, 4),
 ];
 
 function SimpleTable(props) {
-  //const { classes } = props;
 
   return (
     <Paper className={props.root}>
@@ -78,6 +55,7 @@ function SimpleTable(props) {
             <TableCell numeric>Deaths</TableCell>
             <TableCell numeric>Damage</TableCell>
             <TableCell numeric>Healing</TableCell>
+            <TableCell numeric>Time</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,12 +63,13 @@ function SimpleTable(props) {
             return (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.hero}
                 </TableCell>
-                <TableCell numeric>{row.calories}</TableCell>
-                <TableCell numeric>{row.fat}</TableCell>
-                <TableCell numeric>{row.carbs}</TableCell>
-                <TableCell numeric>{row.protein}</TableCell>
+                <TableCell numeric>{row.elims}</TableCell>
+                <TableCell numeric>{row.deaths}</TableCell>
+                <TableCell numeric>{row.damage}</TableCell>
+                <TableCell numeric>{row.healing}</TableCell>
+                <TableCell numeric>{row.time}</TableCell>
               </TableRow>
             );
           })}

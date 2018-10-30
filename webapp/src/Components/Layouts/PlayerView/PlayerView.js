@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Card from '../Card'
-import RightPlayerStats from "../ComparePlayers/RightPlayerStats"
-import LeftPlayerStats from "../ComparePlayers/LeftPlayerStats"
 import TextField from '@material-ui/core/TextField'
 import HeroStats from "./HeroStats"
-import MostPlayed from "./MostPlayed"
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
+import AutoComplete from './AutoComplete';
 
 
 const styles = theme => ({
     root: {
       flexGrow: 1,
+      ...theme.mixins.gutters(),
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2,
     },
     paper: {
       height: 140,
@@ -25,32 +27,70 @@ const styles = theme => ({
   });
 
 
-export default props =>
-    <Fragment>
-        <Grid container> 
-            <TextField
-                id="standard-name"
-                label="Player 1"
-                margin="normal"
-                defaultValue="Muma"
-            />
-            <Typography variant="subheading">
-                Overall Stats
-            </Typography>
-            <Typography variant="subheading">
-                Most Played
-            </Typography>
-        </Grid>
-        <Grid container>
-            <Card 
-                key={0} 
-                name="Muma" 
-                team="Houston Outlaws" 
-                role="Tank"
-                link="https://bnetcmsus-a.akamaihd.net/cms/page_media/EZTH4390SJCR1526600596230.png"
-            />
-            <HeroStats />
-            <MostPlayed />
-            <test />
-        </Grid>
-    </Fragment>
+class PlayerView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',
+            players: [],
+            player: "Muma",
+            hero: "Tracer",
+        };
+    
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+
+
+    componentDidMount() {
+        this.getPlayers()
+      }
+    
+    getPlayers = _ => {
+        fetch('http://localhost:4000/players')
+        .then(response => response.json())
+        .then(response => this.setState({ players: response.data}))
+        .catch(err => console.error(err))
+      }
+
+      handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+
+    render() {
+      return (
+        <Fragment>
+            <Grid container justify="center" alignItems="center" spacing={16}> 
+                <Grid item> 
+                    
+                    <AutoComplete
+                        id="player"
+                        defaultValue={this.state.player}
+                        value={this.state.value} 
+                        onChange={this.handleChange} 
+                        />
+                    
+                    <TextField
+                        id="player"
+                        label="Player"
+                        margin="normal"
+                        defaultValue={this.state.player}
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                    />
+                    {this.state.players.map((item, index) => {
+                        if(item.Name === document.getElementById("player").value) {
+                            return <Card key={1} player={item}>{JSON.stringify(item)}</Card>
+                        }
+                    })}
+                </Grid>
+                <Grid item justify="center">                
+                    <HeroStats />
+                </Grid>
+         </Grid>
+        </Fragment>
+      )
+    }
+}
+
+export default withStyles(styles)(PlayerView);

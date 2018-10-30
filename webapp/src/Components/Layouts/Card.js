@@ -21,28 +21,27 @@ const styles = {
 };
 
 function MediaCard(props) {
-  //const { classes } = props;
   return (
     <Card className={props.card} root={styles.card}>
       <CardActionArea>
         <CardMedia
           className={props.media}
-          image={props.picture}
-          title={props.name}
+          image={props.player.Picture}
+          title={props.player.Name}
           style={styles.media}
         />
         <CardContent style={styles.card}>
           <Grid>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.name}
+              {props.player.Name}
             </Typography>
             <Typography gutterBottom variant="subheading" component="h2">
-              {props.role}
+              {props.player.Role}
             </Typography>
           </Grid>
 
           <Typography component="p">
-            {props.team}
+            {props.player.Team}
           </Typography>
         </CardContent>
       </CardActionArea>
