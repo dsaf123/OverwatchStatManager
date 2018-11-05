@@ -34,7 +34,7 @@ function createData(hero, elims, deaths, damage, healing, time) {
   return { id, hero, elims, deaths, damage, healing, time };
 }
 
-const rows = [
+let rows = [
   createData('Winston', 356, 16.0, 49, 3.9, 345),
   createData('Reinhardt', 237, 9.0, 37, 4.3, 304),
   createData('Orisa', 305, 3.7, 67, 4.3, 205),
@@ -43,44 +43,78 @@ const rows = [
   createData('Brigitte', 305, 3.7, 67, 4.3, 4),
 ];
 
-function SimpleTable(props) {
-
-  return (
-    <Paper className={props.root}>
-      <Table className={props.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Hero</TableCell>
-            <TableCell numeric>Elims</TableCell>
-            <TableCell numeric>Deaths</TableCell>
-            <TableCell numeric>Damage</TableCell>
-            <TableCell numeric>Healing</TableCell>
-            <TableCell numeric>Time</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => {
-            return (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.hero}
-                </TableCell>
-                <TableCell numeric>{row.elims}</TableCell>
-                <TableCell numeric>{row.deaths}</TableCell>
-                <TableCell numeric>{row.damage}</TableCell>
-                <TableCell numeric>{row.healing}</TableCell>
-                <TableCell numeric>{row.time}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
+class HeroTable extends React.Component {
+  state = {
+    hs: [],
+    playerstats: [],
+    
+    };
+  componentDidMount() {
+    this.getPlayers()
+    this.getHeroStats()
+    this.updateStats();
+    console.log("MOUNTED")
+  }
+  updateStats() {
+    this.state.playerstats = this.state.hs.map(hero => (createData(hero.Hero, 1,2,3,4, 0)));
+    console.log(this.state.hs);
+    console.log("HOOOO");
+  }
+  getPlayers = _ => {
+    fetch(`http://localhost:4000/stats/player?player=${this.props.player}`)
+    .then(response => response.json())
+    .then(response => this.setState({ playerstats: response.data}))
+    .catch(err => console.error(err))
+  }
+  getHeroStats = _ => {
+    fetch(`http://localhost:4000/herostats/player?player=${this.props.player}`)
+    .then(response => response.json())
+    .then(response => this.setState({hs: response.data}))
+    .catch(err => console.error(err))
+}
+  render() {
+    return (
+      <Paper className={this.props.root}>
+        <Table className={this.props.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Hero</TableCell>
+              <TableCell numeric>Elims</TableCell>
+              <TableCell numeric>Deaths</TableCell>
+              <TableCell numeric>Damage</TableCell>
+              <TableCell numeric>Healing</TableCell>
+              <TableCell numeric>Time</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.playerstats.map(row => {
+              return (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.hero}
+                  </TableCell>
+                  <TableCell numeric>{row.elims}</TableCell>
+                  <TableCell numeric>{row.deaths}</TableCell>
+                  <TableCell numeric>{row.damage}</TableCell>
+                  <TableCell numeric>{row.healing}</TableCell>
+                  <TableCell numeric>{row.time}</TableCell>
+                </TableRow>
+              );
+            })}
+            {this.state.playerstats.map(stats => {
+              return (
+                <div>{stats}</div>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  }
 }
 
-SimpleTable.propTypes = {
+HeroTable.propTypes = {
     props: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(HeroTable);

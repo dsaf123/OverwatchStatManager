@@ -4,10 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
 export default props => 
-  <AppBar position="static" color="white">
-    <Toolbar>
-      <Typography variant="caption" color="inherit" justify="center">
+  
+      <Typography marginBottom='${theme.spacing.unit} * 8' padding='${theme.spacing.unit * 6}px 0' variant="caption" color="inherit" justify="center" align="center" gutterBottom>
         Andrew Henningsen & Evan Wilcox
       </Typography>
-    </Toolbar>
-  </AppBar>
+

@@ -35,6 +35,8 @@ class PlayerView extends React.Component {
             players: [],
             player: "Muma",
             hero: "Tracer",
+            hs: [],
+            stattable: React.createRef(),
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -44,6 +46,11 @@ class PlayerView extends React.Component {
 
     componentDidMount() {
         this.getPlayers()
+        this.state.playerss = this.state.players.map(player => ({
+            label: player,
+            value: player,
+        }))
+
       }
     
     getPlayers = _ => {
@@ -53,39 +60,31 @@ class PlayerView extends React.Component {
         .catch(err => console.error(err))
       }
 
-      handleChange(event) {
-        this.setState({value: event.target.value});
+      handleChange(val) {
+        this.setState({value: val});
       }
 
+
     render() {
+ 
       return (
         <Fragment>
             <Grid container justify="center" alignItems="center" spacing={16}> 
                 <Grid item> 
-                    
                     <AutoComplete
-                        id="player"
+                        id="Player"
                         defaultValue={this.state.player}
                         value={this.state.value} 
                         onChange={this.handleChange} 
                         />
-                    
-                    <TextField
-                        id="player"
-                        label="Player"
-                        margin="normal"
-                        defaultValue={this.state.player}
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                    />
-                    {this.state.players.map((item, index) => {
-                        if(item.Name === document.getElementById("player").value) {
+                        {this.state.players.map((item, index) => {
+                        if(item.Name === this.state.value.value) {
                             return <Card key={1} player={item}>{JSON.stringify(item)}</Card>
                         }
                     })}
                 </Grid>
                 <Grid item justify="center">                
-                    <HeroStats />
+                    <HeroStats ref={this.state.stattable} player={this.state.value.value} />
                 </Grid>
          </Grid>
         </Fragment>

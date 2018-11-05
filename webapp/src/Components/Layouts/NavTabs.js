@@ -8,9 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import PlayerView from "./PlayerView/PlayerView"
 import ComparePlayers from "./ComparePlayers/ComparePlayers"
 
-
-
-
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -30,7 +27,10 @@ function LinkTab(props) {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    width: 'auto',
+    float: 'none',
+    marginLeft: theme.spacing.unit*8,
+    marginRight: theme.spacing.unit*8,
   },
   tabsRoot: {
     borderBottom: '1px solid #e8e8e8',
@@ -84,7 +84,7 @@ class NavTabs extends React.Component {
     const { value } = this.state;
 
     return (
-      <div className={this.props.root}>
+      <div className={classes.root}>
           <Tabs classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }} borderBottom='1px solid #e8e8e8' fullWidth value={value} onChange={this.handleChange}>
             <LinkTab label="Player View" href="page1" />
             <LinkTab label="Compare Players" href="page2" />

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Card from '../Card'
 import PlayerStats from "./PlayerStats"
 import TextField from '@material-ui/core/TextField'
-
+import AutoComplete from './AutoComplete';
 
 
 const styles = {
@@ -19,8 +19,9 @@ class ComparePlayers extends Component {
         super(props);
         this.state = {
             value: '',
+            value2: '',
             players: [],
-            Player1: "Muma",
+            player1: "Muma",
             player2: "sinatraa",
             hero: "Tracer",
         };
@@ -41,12 +42,12 @@ class ComparePlayers extends Component {
         .catch(err => console.error(err))
       }
     
-      handleChange1(event) {
-        this.setState({player1: event.target.value});
+      handleChange1(val) {
+        this.setState({player1: val});
       }
 
-      handleChange2(event) {
-        this.setState({player2: event.target.value});
+      handleChange2(val) {
+        this.setState({player2: val});
       }
 
     render() {
@@ -54,43 +55,32 @@ class ComparePlayers extends Component {
             <Fragment>
                 <Grid container justify="center" alignItems="center" spacing={16}>
                     <Grid item>
-                    <TextField
-                        id="player1"
-                        label="Player 1"
-                        margin="normal"
+                    <AutoComplete
+                        id="Player"
                         defaultValue={this.state.player1}
-                        value={this.state.player1} 
-                        onChange={this.handleChange1}
-                    />
+                        value={this.state.value} 
+                        onChange={this.handleChange1} 
+                        />
                     {this.state.players.map((item, index) => {
-                        if(item.Name === document.getElementById("player1").value) {
+                        if(item.Name === this.state.player1.value) {
                             return <Card key={1} player={item}>{JSON.stringify(item)}</Card>
                         }
                     })}
                     </Grid>
-            
-                    <Grid item>
-                        <TextField 
-                            id="hero"
-                            label="Hero"
-                            margin="normal"
-                            defaultValue={this.state.hero}
-
-                        />
-                        <PlayerStats player1={this.state.player1} player2={this.state.player2}/>
-                    </Grid>
-
                     <Grid item justify="center">
-                    <TextField
-                        id="player2"
-                        label="Player 2"
-                        margin="normal"
+
+                    <PlayerStats player1={this.state.player1.value} player2={this.state.player2.value}/>
+                    </Grid>
+                    
+                    <Grid item>
+                    <AutoComplete
+                        id="Player2"
                         defaultValue={this.state.player2}
-                        value={this.state.player2} 
-                        onChange={this.handleChange2}
-                    />
+                        value={this.state.value2} 
+                        onChange={this.handleChange2} 
+                        />
                     {this.state.players.map((item, index) => {
-                        if(item.Name === document.getElementById("player2").value) {
+                        if(item.Name === this.state.player2.value) {
                             return <Card key={1} player={item}>{JSON.stringify(item)}</Card>
                         }
                     })}

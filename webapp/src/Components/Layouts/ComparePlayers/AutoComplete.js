@@ -251,6 +251,7 @@ class IntegrationReactSelect extends React.Component {
       }),
     };
     this.state.playerss = this.state.players.map(player => ({value: player.Name, label: player.Name}))
+    console.log(this.state.playerss)
     return (
       <div className={classes.root}>
         <NoSsr>

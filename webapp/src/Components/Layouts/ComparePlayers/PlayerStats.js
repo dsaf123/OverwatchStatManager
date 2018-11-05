@@ -32,18 +32,28 @@ const rows = [
   createData('Healing', 305, 3.7),
 ];
 
-function SimpleTable(props) {
+class PlayerStats extends React.Component {
   //const { classes } = props;
+  componentDidMount() {
+    this.getPlayers()
+  }
 
+getPlayers = _ => {
+    fetch('http://localhost:4000/stats/cmpplayers?player1=${player1}&player2=${player2}')
+    .then(response => response.json())
+    .then(response => this.setState({ players: response.data}))
+    .catch(err => console.error(err))
+  }
+  render() {
   return (
     <Fragment>
-    <Paper className={props.root}>
-      <Table className={props.table}>
+    <Paper className={this.props.root}>
+      <Table className={this.props.table}>
         <TableHead>
           <TableRow>
-            <TableCell >{props.player1}</TableCell>
+            <TableCell >{this.props.player1}</TableCell>
             <TableCell>Stats</TableCell>
-            <TableCell >{props.player2}</TableCell>
+            <TableCell >{this.props.player2}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -63,10 +73,11 @@ function SimpleTable(props) {
     </Paper>
     </Fragment>
   );
+ }
 }
 
-SimpleTable.propTypes = {
+PlayerStats.propTypes = {
     props: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(PlayerStats);
