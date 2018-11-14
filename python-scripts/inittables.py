@@ -15,7 +15,7 @@ def create_connection(db_file):
 
     return None
 
-os.system('droptables.py')
+os.system('python droptables.py')
 
 db = create_connection("owdb.db")
 c = db.cursor()
@@ -28,7 +28,8 @@ createList = ["CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Hand
               "CREATE TABLE IF NOT EXISTS MapInstance (Number int, MatchID REFERENCES Match (MatchID), Name varchar REFERENCES Map, Time int, Score char(10), PRIMARY KEY(Number, MatchID))",
               "CREATE TABLE IF NOT EXISTS PlayedOn(Match int, MapNumber int, Hero varchar, Player int REFERENCES Player(PlayerID), Damage float, Deaths int, Eliminations int, Healing float, FOREIGN KEY(Match, MapNumber) REFERENCES MapInstance, PRIMARY KEY(Match, MapNumber, Hero, Player))",
               "CREATE TABLE IF NOT EXISTS Coach (CoachID int PRIMARY KEY, Handle char(30), Name char(30), Team int REFERENCES Team(TeamID))",
-              "CREATE TABLE IF NOT EXISTS Personnel (StageName char(30) PRIMARY KEY, Name varchar, Type varchar, Picture varchar)"]
+              "CREATE TABLE IF NOT EXISTS Personnel (StageName char(30) PRIMARY KEY, Name varchar, Type varchar, Picture varchar)",
+              "CREATE TABLE IF NOT EXISTS Stats (Player int REFERENCES Player(PlayerID), Hero varchar, Damage float, Deaths float, Eliminations float, Healing float, FinalBlows float, Ultimates float, Time float, PRIMARY KEY(Player, Hero))"]
 
 for i in createList:
     c.execute(i)
