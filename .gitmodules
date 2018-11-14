@@ -1,0 +1,6 @@
+[submodule "webapp"]
+	path = webapp
+	url = https://github.com/dsaf123/OverwatchStatViewer.git
+[submodule "dbapp"]
+	path = dbapp
+	url = https://github.com/dsaf123/OverwatchStatisticsHost.git
