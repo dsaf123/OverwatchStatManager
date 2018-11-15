@@ -9,5 +9,6 @@
   },
   "scripts": {
     "start": "concurrently \"cd webapp && npm run start\" \"cd dbapp && npm run start\""
+    "heroku-postbuild": "cd webapp && npm install && npm run build"
   }
 }
