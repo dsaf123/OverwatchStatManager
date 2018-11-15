@@ -4,6 +4,7 @@
   "main": "index.js",
   "repository": {},
   "license": "MIT",
+  "cacheDirectories": ["webapp/node_modules", "dbapp/node_modules"],
   "dependencies": {
     "concurrently": "^4.0.1"
   },
