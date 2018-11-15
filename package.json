@@ -8,7 +8,7 @@
     "concurrently": "^4.0.1"
   },
   "scripts": {
-    "start": "concurrently \"cd webapp && npm run start\" \"cd dbapp && npm run start\"",
+    "start": "cd dbapp && node index.js",
     "heroku-postbuild": "cd webapp && npm install && npm run build"
   }
 }
