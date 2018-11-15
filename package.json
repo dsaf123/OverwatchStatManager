@@ -8,6 +8,6 @@
     "concurrently": "^4.0.1"
   },
   "scripts": {
-    "start": "concurrently \"cd webapp && PORT=3000 npm run start\" \"cd dbapp && PORT=4000 npm run start\""
+    "start": "concurrently \"cd webapp && npm run start\" \"cd dbapp && npm run start\""
   }
 }
