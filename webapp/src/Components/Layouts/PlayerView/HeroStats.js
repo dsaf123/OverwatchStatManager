@@ -44,35 +44,25 @@ let rows = [
 ];
 
 class HeroTable extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     hs: [],
     playerstats: [],
-    
+
     };
   componentDidMount() {
-    this.getPlayers()
-    this.getHeroStats()
-    this.updateStats();
     console.log("MOUNTED")
   }
   updateStats() {
     this.state.playerstats = this.state.hs.map(hero => (createData(hero.Hero, 1,2,3,4, 0)));
     console.log(this.state.hs);
     console.log("HOOOO");
+    console.log(this.props.player.value.label);
   }
-  getPlayers = _ => {
-    fetch(`http://localhost:4000/stats/player?player=${this.props.player}`)
-    .then(response => response.json())
-    .then(response => this.setState({ playerstats: response.data}))
-    .catch(err => console.error(err))
-  }
-  getHeroStats = _ => {
-    fetch(`http://localhost:4000/herostats/player?player=${this.props.player}`)
-    .then(response => response.json())
-    .then(response => this.setState({hs: response.data}))
-    .catch(err => console.error(err))
-}
   render() {
+    console.log(this.state.hs);
     return (
       <Paper className={this.props.root}>
         <Table className={this.props.table}>
@@ -83,27 +73,21 @@ class HeroTable extends React.Component {
               <TableCell numeric>Deaths</TableCell>
               <TableCell numeric>Damage</TableCell>
               <TableCell numeric>Healing</TableCell>
-              <TableCell numeric>Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.playerstats.map(row => {
+            {this.props.hs.map(row => {
+              console.log(row);
               return (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
-                    {row.hero}
+                    {row.Hero}
                   </TableCell>
                   <TableCell numeric>{row.elims}</TableCell>
                   <TableCell numeric>{row.deaths}</TableCell>
                   <TableCell numeric>{row.damage}</TableCell>
                   <TableCell numeric>{row.healing}</TableCell>
-                  <TableCell numeric>{row.time}</TableCell>
                 </TableRow>
-              );
-            })}
-            {this.state.playerstats.map(stats => {
-              return (
-                <div>{stats}</div>
               );
             })}
           </TableBody>

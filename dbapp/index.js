@@ -55,7 +55,7 @@ app.get('/stats/player', (req, res) => {
 
 app.get('/herostats/player', (req, res) => {
   const {player} = req.query;
-  db.all(`SELECT PlayedOn.Hero, SUM(damage), SUM(eliminations), SUM(deaths), SUM(healing) FROM PlayedOn JOIN (SELECT PlayerId FROM Player WHERE Name='${player}') where PlayedOn.Player=PlayerId GROUP BY PlayedOn.Hero`, [], (err, rows) => {
+  db.all(`SELECT PlayedOn.Hero, SUM(damage) as damage, SUM(eliminations) as elims, SUM(deaths) as deaths, SUM(healing) as healing FROM PlayedOn JOIN (SELECT PlayerId FROM Player WHERE Name='${player}') where PlayedOn.Player=PlayerId GROUP BY PlayedOn.Hero`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }

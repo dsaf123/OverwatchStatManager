@@ -38,7 +38,7 @@ class PlayerView extends React.Component {
             hs: [],
             stattable: React.createRef(),
         };
-    
+
         this.handleChange = this.handleChange.bind(this);
       }
 
@@ -52,30 +52,37 @@ class PlayerView extends React.Component {
         }))
 
       }
-    
+
     getPlayers = _ => {
         fetch('http://localhost:4000/players')
         .then(response => response.json())
         .then(response => this.setState({ players: response.data}))
+        .then(this.getHeroStats())
         .catch(err => console.error(err))
       }
-
+      getHeroStats = _ => {
+        fetch(`http://localhost:4000/herostats/player?player=${this.state.value.label}`)
+        .then(response => response.json())
+        .then(response => this.setState({hs: response.data}))
+        .catch(err => console.error(err))
+      }
       handleChange(val) {
-        this.setState({value: val});
+        this.setState({value: val})
+        this.getHeroStats();
       }
 
 
     render() {
- 
+
       return (
         <Fragment>
-            <Grid container justify="center" alignItems="center" spacing={16}> 
-                <Grid item> 
+            <Grid container justify="center" alignItems="center" spacing={16}>
+                <Grid item>
                     <AutoComplete
                         id="Player"
                         defaultValue={this.state.player}
-                        value={this.state.value} 
-                        onChange={this.handleChange} 
+                        value={this.state.value}
+                        onChange={this.handleChange}
                         />
                         {this.state.players.map((item, index) => {
                         if(item.Name === this.state.value.value) {
@@ -83,8 +90,9 @@ class PlayerView extends React.Component {
                         }
                     })}
                 </Grid>
-                <Grid item justify="center">                
-                    <HeroStats ref={this.state.stattable} player={this.state.value.value} />
+                <Grid item justify="center">
+                {console.log(this.state.hs)}
+                    <HeroStats ref="stat" hs={this.state.hs} player={this.state} />
                 </Grid>
          </Grid>
         </Fragment>
