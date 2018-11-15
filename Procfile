@@ -1,1 +1,1 @@
-web: node dbapp/index.js
+web: node index.js
