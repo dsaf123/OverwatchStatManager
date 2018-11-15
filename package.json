@@ -1,0 +1,14 @@
+{
+  "name": "Overwatch-Stat-Manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^4.0.1"
+  },
+  "scripts": {
+    "install": "(cd webapp && npm run build) && (cd dbapp && npm install)",
+    "start": "concurrently \"cd webapp && PORT=3000 npm run start\" \"cd dbapp && PORT=4000 npm run start\""
+  }
+}
