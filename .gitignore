@@ -4,3 +4,4 @@ sqlite3.exe
 owdb.db
 webapp/node_modules/
 dbapp/node_modules/
+node_modules/
