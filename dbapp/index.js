@@ -5,11 +5,10 @@ const app = express();
 const path = require('path')
 const allPlayers = 'SELECT * FROM Players';
 
-let db = new sqlite3.Database(__dirname + "/owdb.db", sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('./owdb.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
     console.error(err.message);
   }
-  console.log(path.resolve(__dirname, "/owdb.db"))
   console.log('Connected to the database.');
 });
 
