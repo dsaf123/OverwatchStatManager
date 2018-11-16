@@ -10,6 +10,6 @@
   },
   "scripts": {
     "install": "(cd dbapp && npm install) && (cd webapp && npm install)",
-    "start": "concurrently \"cd webapp && PORT=3000 npm run start\" \"cd dbapp && PORT=3001 npm run start\"",
+    "start": "concurrently \"cd webapp && PORT=3000 npm run start\" \"cd dbapp && PORT=3001 npm run start\""
   }
 }
