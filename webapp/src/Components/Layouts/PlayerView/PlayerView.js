@@ -26,12 +26,13 @@ const styles = theme => ({
     },
   });
 
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
 
 class PlayerView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '{label:Muma, value:Muma}',
+            value: '',
             players: [],
             player: "Muma",
             hero: "Tracer",
@@ -45,7 +46,6 @@ class PlayerView extends React.Component {
 
 
     componentDidMount() {
-        this.setState({value: {value:"Muma", label:"Muma"}}, this.getHeroStats("Muma"))
         this.getPlayers()
         this.state.playerss = this.state.players.map(player => ({
             label: player,
@@ -55,23 +55,21 @@ class PlayerView extends React.Component {
       }
 
     getPlayers = _ => {
-        fetch('http://localhost:3001/players')
+        fetch(`http://localhost:${port}/players`)
         .then(response => response.json())
         .then(response => this.setState({ players: response.data}))
         .then(this.getHeroStats())
         .catch(err => console.error(err))
       }
-      getHeroStats = (val) => {
-        console.log(val)
-        fetch(`http://localhost:3001/herostats/player?player=${val}`)
+      getHeroStats = _ => {
+        fetch(`http://localhost:${port}/herostats/player?player=${this.state.value.label}`)
         .then(response => response.json())
         .then(response => this.setState({hs: response.data}))
         .catch(err => console.error(err))
       }
       handleChange(val) {
-        console.log(val);
-        this.setState({value: val}, this.getHeroStats(val.value))
-
+        this.setState({value: val})
+        this.getHeroStats(val);
       }
 
 
@@ -79,7 +77,7 @@ class PlayerView extends React.Component {
 
       return (
         <Fragment>
-            <Grid container justify="" alignItems="top" spacing={16}>
+            <Grid container justify="center" alignItems="center" spacing={16}>
                 <Grid item>
                     <AutoComplete
                         id="Player"

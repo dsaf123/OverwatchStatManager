@@ -40,13 +40,15 @@ const rows = [
   createData('Healing', 305, 3.7),
 ];
 
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
+
 class PlayerStats extends React.Component {
   componentDidMount() {
     this.getPlayers()
   }
 
 getPlayers = _ => {
-    fetch('http://localhost:3001/stats/cmpplayers?player1=${player1}&player2=${player2}')
+    fetch(`http://localhost:${port}/stats/cmpplayers?player1=${this.props.player1}&player2=${this.props.player2}`)
     .then(response => response.json())
     .then(response => this.setState({ players: response.data}))
     .catch(err => console.error(err))

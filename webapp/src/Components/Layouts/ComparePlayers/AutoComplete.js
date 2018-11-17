@@ -209,6 +209,8 @@ const components = {
   ValueContainer,
 };
 
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
+
 class IntegrationReactSelect extends React.Component {
   state = {
     players: [],
@@ -222,7 +224,7 @@ class IntegrationReactSelect extends React.Component {
   }
 
   getPlayers = _ => {
-    fetch('http://localhost:3001/players')
+    fetch(`http://localhost:${port}/players`)
     .then(response => response.json())
     .then(response => this.setState({ players: response.data}))
     .catch(err => console.error(err))

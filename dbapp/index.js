@@ -5,7 +5,7 @@ const app = express();
 const path = require('path')
 const allPlayers = 'SELECT * FROM Players';
 
-let db = new sqlite3.Database('./owdb.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('owdb.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
     console.error(err.message);
   }
@@ -86,10 +86,11 @@ app.get('/cmpplayer', (req, res) => {
 
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../../webapp/public')))
+app.use(express.static(path.join(__dirname, '../webapp/build')))
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../../webapp/public/index.html'))
+  console.log(path.join(__dirname + '../../webapp/build/index.html'))
+  res.sendFile(path.join(__dirname + '../../webapp/build/index.html'))
 })
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8080

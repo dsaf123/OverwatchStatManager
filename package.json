@@ -9,7 +9,7 @@
     "concurrently": "^4.0.1"
   },
   "scripts": {
-    "install": "(cd dbapp && npm install) && (cd webapp && npm install)",
-    "start": "concurrently \"cd webapp && npm run start\" \"cd dbapp && npm run start\""
+    "install": "(cd dbapp && npm install) && (cd .. && cd webapp && npm install && npm run build)",
+    "start": "cd dbapp && node index.js"
   }
 }

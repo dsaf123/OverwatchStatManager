@@ -13,6 +13,7 @@ const styles = {
     }
   };
 
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
 
 class ComparePlayers extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class ComparePlayers extends Component {
       }
 
     getPlayers = _ => {
-        fetch('http://localhost:3001/players')
+        fetch(`http://localhost:${port}/players`)
         .then(response => response.json())
         .then(response => this.setState({ players: response.data}))
         .catch(err => console.error(err))
@@ -53,7 +54,7 @@ class ComparePlayers extends Component {
       getPlayerStats = (val1, val2) => {
         console.log(val1)
         console.log(val2)
-        fetch(`http://localhost:3001/cmpplayer?player1=${val1}&player2=${val2}`)
+        fetch(`http://localhost:${port}/cmpplayer?player1=${val1}&player2=${val2}`)
         .then(response => response.json())
         .then(response => this.setState({hs: response.data}))
         .catch(err => console.error(err))
