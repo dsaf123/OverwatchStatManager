@@ -22,7 +22,14 @@ data = json.loads(response.read())
 db = create_connection("owdb.db")
 c = db.cursor()
 for i in data['competitors']:
-    tmpdata = [i['competitor']['name'], i['competitor']['id']]
-    c.execute('insert into Team (Name, TeamID) values (?,?)', tmpdata)
+    division = ""
+    if i['competitor']['owl_division'] == 80:
+        division = "Pacific"
+    elif i['competitor']['owl_division'] == 79:
+        division = "Atlantic"
+    tmpdata = [i['competitor']['name'], i['competitor']['id'], division, i['competitor']['icon'], i['competitor']['primaryColor'], i['competitor']['secondaryColor'], i['competitor']['homeLocation']]
+    query = 'update Team set Logo = \'' + i['competitor']['icon'] + "\' WHERE Name=\'" + i['competitor']['name'] + "\'"
+    c.execute(query)
+    #c.execute('insert into Team (Name, TeamID, Division, Logo, PrimaryColor, SecondaryColor, Location) values (?,?,?,?,?,?,?)', tmpdata)
 db.commit()
 db.close()

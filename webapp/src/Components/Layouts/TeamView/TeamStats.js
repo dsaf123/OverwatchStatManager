@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const styles = theme => ({
   root: {
@@ -43,9 +44,16 @@ let rows = [
   createData('Brigitte', 305, 3.7, 67, 4.3, 4),
 ];
 
-class HeroTable extends React.Component {
+class TeamTable extends React.Component {
   constructor(props) {
     super(props);
+  }
+  getColor(winner, team) {
+    if (winner===team)
+    {
+      return { background: "#69f0ae"}
+    }
+    return { background: "#ff5252"}
   }
   state = {
     hs: [],
@@ -56,7 +64,7 @@ class HeroTable extends React.Component {
     console.log("MOUNTED")
   }
   updateStats() {
-    this.state.playerstats = this.state.hs.map(hero => (createData(hero.Hero, 1,2,3,4, 0)));
+    this.state.playerstats = this.state.hs.map(team => (createData(team.Hero, 1,2,3,4, 0)));
   }
   render() {
     return (
@@ -64,31 +72,24 @@ class HeroTable extends React.Component {
         <Table className={this.props.table}>
           <TableHead>
             <TableRow>
-              <TableCell>Hero</TableCell>
-              <TableCell numeric>Elims</TableCell>
-              <TableCell numeric>Deaths</TableCell>
-              <TableCell numeric>Damage</TableCell>
-              <TableCell numeric>Healing</TableCell>
-              <TableCell numeric>Ultimates</TableCell>
-              <TableCell numeric>Final Blows</TableCell>
-              <TableCell numeric>Total Time (Minutes)</TableCell>
+              <TableCell></TableCell>
+              <TableCell>Team 1</TableCell>
+              <TableCell>Score</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Team 2</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.hs.map(row => {
-              if ( !(row.Eliminations === 0 & row.Deaths === 0 & row.Damage === 0 & row.Healing === 0))
+            {this.props.ms.map(row => {
               return (
-                <TableRow hover={true} key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.Hero.charAt(0).toUpperCase() + row.Hero.substr(1)}
-                  </TableCell>
-                  <TableCell numeric>{row.Eliminations.toFixed(2)}</TableCell>
-                  <TableCell numeric>{row.Deaths.toFixed(2)}</TableCell>
-                  <TableCell numeric>{row.Damage.toFixed(2)}</TableCell>
-                  <TableCell numeric>{row.Healing.toFixed(2)}</TableCell>
-                  <TableCell numeric>{row.Ultimates.toFixed(2)}</TableCell>
-                  <TableCell numeric>{row.FinalBlows.toFixed(2)}</TableCell>
-                  <TableCell numeric>{(row.Time/60).toFixed(2)}</TableCell>
+                <TableRow key={row.id} style={{...this.getColor(row.Winner, (row.Team1Name===this.props.team ? row.Team1ID : row.TeamID))}}>
+                  <TableCell numeric><img height={60} width={60} src={row.Team1Logo}/></TableCell>
+                  <TableCell>{row.Team1Name}</TableCell>
+                  <TableCell>{row.Score}</TableCell>
+                  <TableCell>{row.Time}</TableCell>
+                  <TableCell>{row.Name}</TableCell>
+                  <TableCell numeric><img height={60} width={60} src={row.Logo}/></TableCell>
                 </TableRow>
               );
             })}
@@ -99,8 +100,8 @@ class HeroTable extends React.Component {
   }
 }
 
-HeroTable.propTypes = {
+TeamTable.propTypes = {
     props: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(HeroTable);
+export default withStyles(styles)(TeamTable);

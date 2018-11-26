@@ -25,6 +25,111 @@ app.get('/players', (req, res) => {
   })
 });
 
+app.get('/teams', (req, res) => {
+  db.all('SELECT * FROM Team', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/teams/team', (req, res) => {
+  const {TeamID} = req.query;
+  db.all(`SELECT * FROM Team WHERE TeamID='${TeamID}'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/matches', (req, res) => {
+  db.all('SELECT * FROM Match', [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/matches/match', (req, res) => {
+  const {match} = req.query
+  db.all(`SELECT * FROM Match WHERE MatchID='${match}'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/matches/match/1', (req, res) => {
+  const {match} = req.query
+  db.all(`SELECT * FROM Match, PlayedOn WHERE Match.MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='1'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+app.get('/matches/match/2', (req, res) => {
+  const {match} = req.query
+  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='2'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/matches/match/3', (req, res) => {
+  const {match} = req.query
+  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='3'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/matches/match/4', (req, res) => {
+  const {match} = req.query
+  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='4'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/matches/match/5', (req, res) => {
+  const {match} = req.query
+  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='5'`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
 app.get('/player', (req, res) => {
   const {player} = req.query;
   db.all(`SELECT * FROM Player WHERE Name='${player}'`, [], (err, rows) => {
@@ -37,9 +142,47 @@ app.get('/player', (req, res) => {
   })
 });
 
+
+
 app.get('/stats/player', (req, res) => {
   const {player} = req.query;
   db.all(`SELECT * FROM PlayedOn JOIN (SELECT PlayerId FROM Player WHERE Name='${player}') where PlayedOn.Player=PlayerId`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/stats/team', (req, res) => {
+  const {team} = req.query;
+  db.all(`SELECT * FROM Team, PlayersTeam, Player WHERE Team.Name='${team}' and PlayersTeam.TeamID = Team.TeamID and PlayersTeam.PlayerID = Player.PlayerId`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/stats/match', (req, res) => {
+  const {team} = req.query;
+  db.all(`SELECT * FROM (SELECT MatchID, Team1, Team2, Winner, Time, Score, TeamID as Team1ID, Name as Team1Name, Logo as Team1Logo FROM Match, Team as T1 WHERE Team1ID=Team1), Team WHERE Team2=TeamID AND (Name='${team}' or Team1Name='${team}') ORDER BY MatchID DESC`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
+
+app.get('/stats/cmpmatch', (req, res) => {
+  const {team, team2} = req.query;
+  db.all(`SELECT * FROM (SELECT MatchID, Team1, Team2, Winner, Time, Score, TeamID as Team1ID, Name as Team1Name, Logo as Team1Logo FROM Match, Team as T1 WHERE Team1ID=Team1), Team WHERE Team2=TeamID AND ((Name='${team}' and Team1Name='${team2}') or (Name='${team2}' and Team1Name='${team}')) ORDER BY MatchID DESC`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }

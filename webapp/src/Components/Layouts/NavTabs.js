@@ -7,6 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import PlayerView from "./PlayerView/PlayerView"
 import ComparePlayers from "./ComparePlayers/ComparePlayers"
+import TeamView from "./TeamView/TeamView"
+import CompareTeamView from "./CompareTeamView/CompareTeamView"
+import MatchView from "./MatchView/MatchView"
 
 function TabContainer(props) {
   return (
@@ -71,18 +74,22 @@ const styles = theme => ({
 });
 
 class NavTabs extends React.Component {
-  state = {
-    value: 0,
-  };
+  constructor(props) {
+      super(props)
+      this.state = {
+          value: 0,
+          match: "10233",
+      };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
+  }
+  handleChange = (event, value, match=10233) => {
+    this.setState({ value, match });
   };
 
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-
+    console.log(this.state.match)
     return (
       <div className={classes.root}>
           <Tabs classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }} borderBottom='1px solid #e8e8e8' fullWidth value={value} onChange={this.handleChange}>
@@ -92,25 +99,25 @@ class NavTabs extends React.Component {
             <LinkTab label="Compare Teams" href="page4" />
             <LinkTab label="Match View" href="page5" />
           </Tabs>
-        {value === 0 && 
+        {value === 0 &&
         <TabContainer>
             <PlayerView />
         </TabContainer>}
-        {value === 1 && 
+        {value === 1 &&
         <TabContainer>
             <ComparePlayers />
         </TabContainer>}
-        {value === 2 && 
+        {value === 2 &&
         <TabContainer>
-
+            <TeamView />
         </TabContainer>}
-        {value === 3 && 
+        {value === 3 &&
         <TabContainer>
-
+          <CompareTeamView topChange={this.handleChange}/>
         </TabContainer>}
-        {value === 4 && 
+        {value === 4 &&
         <TabContainer>
-            Page Five
+          <MatchView match={this.state.match}/>
         </TabContainer>}
       </div>
     );

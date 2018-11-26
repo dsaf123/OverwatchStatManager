@@ -62,7 +62,7 @@ class ComparePlayers extends Component {
     render() {
         return (
             <Fragment>
-                <Grid container justify="center" alignItems="top " spacing={16}>
+                <Grid container justify="center" alignItems="top" spacing={16}>
                     <Grid item>
                     <AutoComplete
                         id="Player"
