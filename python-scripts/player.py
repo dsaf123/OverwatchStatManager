@@ -19,7 +19,7 @@ url = "https://api.overwatchleague.com/players"
 response = urllib.request.urlopen(url)
 data = json.loads(response.read())
 
-db = create_connection("owdb.db")
+db = create_connection("../dbapp/owdb.db")
 c = db.cursor()
 #c.execute("CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Handle char(30), Name char(30), Location char(30), PlayerNumber int, Role char(10), Picture char(100))")
 #c.execute("CREATE TABLE IF NOT EXISTS PlayersTeam (PlayerID int REFERENCES Player(PlayerID), TeamID int REFERENCES Team(TeamID), UNIQUE(PlayerID, TeamID))")

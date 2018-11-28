@@ -19,7 +19,7 @@ url = "https://api.overwatchleague.com/teams"
 response = urllib.request.urlopen(url)
 data = json.loads(response.read())
 
-db = create_connection("owdb.db")
+db = create_connection("../dbapp/owdb.db")
 c = db.cursor()
 for i in data['competitors']:
     division = ""

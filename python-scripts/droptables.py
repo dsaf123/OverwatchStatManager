@@ -6,7 +6,7 @@ Run program with no arguments drops all tables.
 Run program with 1 or more arguments drops tables with those names.
 '''
 
-conn = sqlite3.connect("owdb.db")
+conn = sqlite3.connect("../dbapp/owdb.db")
 c = conn.cursor()
 
 # Drops all tables.
@@ -19,7 +19,8 @@ if len(sys.argv) == 1:
                 "DROP TABLE IF EXISTS MapInstance",
                 "DROP TABLE IF EXISTS PlayedOn",
                 "DROP TABLE IF EXISTS Coach",
-                "DROP TABLE IF EXISTS Personnel"]
+                "DROP TABLE IF EXISTS Personnel",
+                "DROP TABLE IF EXISTS Stats"]
     for i in dropList:
         c.execute(i)
 

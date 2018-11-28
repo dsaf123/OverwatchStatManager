@@ -1,4 +1,5 @@
 import sqlite3
+from sqlite3 import OperationalError
 import os
 
 def create_connection(db_file):
@@ -15,24 +16,25 @@ def create_connection(db_file):
 
     return None
 
-os.system('python droptables.py')
-
-db = create_connection("owdb.db")
+db = create_connection("../dbapp/owdb.db")
 c = db.cursor()
 
-createList = ["CREATE TABLE IF NOT EXISTS Player (PlayerID int PRIMARY KEY, Handle char(30), Name char(30), Location char(30), PlayerNumber int, Role char(10), Picture varchar)",
-              "CREATE TABLE IF NOT EXISTS PlayersTeam (PlayerID int REFERENCES Player(PlayerID), TeamID int REFERENCES Team(TeamID), UNIQUE(PlayerID, TeamID))",
-              "CREATE TABLE IF NOT EXISTS Team (TeamID int PRIMARY KEY, Name char(30), Division char(30), Logo varchar, PrimaryColor char(10), SecondaryColor char(10), Location varchar)",
-              "CREATE TABLE IF NOT EXISTS Match (MatchID int PRIMARY KEY, Team1 int REFERENCES Team(TeamID), Team2 int REFERENCES Team(TeamID), Time int, Score char(10), Winner int REFERENCES Team(TeamID))",
-              "CREATE TABLE IF NOT EXISTS Map (Name varchar PRIMARY KEY, Type varchar, Picture varchar)",
-              "CREATE TABLE IF NOT EXISTS MapInstance (Number int, MatchID REFERENCES Match (MatchID), Name varchar REFERENCES Map, Time int, Score char(10), PRIMARY KEY(Number, MatchID))",
-              "CREATE TABLE IF NOT EXISTS PlayedOn(Match int, MapNumber int, Hero varchar, Player int REFERENCES Player(PlayerID), Damage float, Deaths int, Eliminations int, Healing float, FOREIGN KEY(Match, MapNumber) REFERENCES MapInstance, PRIMARY KEY(Match, MapNumber, Hero, Player))",
-              "CREATE TABLE IF NOT EXISTS Coach (CoachID int PRIMARY KEY, Handle char(30), Name char(30), Team int REFERENCES Team(TeamID))",
-              "CREATE TABLE IF NOT EXISTS Personnel (StageName char(30) PRIMARY KEY, Name varchar, Type varchar, Picture varchar)",
-              "CREATE TABLE IF NOT EXISTS Stats (Player int REFERENCES Player(PlayerID), Hero varchar, Damage float, Deaths float, Eliminations float, Healing float, FinalBlows float, Ultimates float, Time float, PRIMARY KEY(Player, Hero))"]
+# Read commands from sql file
+f = open('owdb.sql', 'r')
+sqlFile = f.read()
+f.close()
 
-for i in createList:
-    c.execute(i)
+sqlCommands = sqlFile.split(';')
+
+# Execute every command from the input file
+for command in sqlCommands:
+    # This will skip and report errors
+    # For example, if the tables do not yet exist, this will skip over
+    # the DROP TABLE commands
+    try:
+        c.execute(command)
+    except OperationalError as msg:
+        print ("Command skipped:", msg)
 
 db.commit()
 db.close()
