@@ -30,20 +30,20 @@ Setup and start the database server
 
 ```
 cd dbapp
-node install
+npm install
 node index.js
 ```
 
+Open a new terminal and navigate back to the repository
 Setup and start the web server
 
 ```
-cd ..
 cd webapp
 npm install
 npm start
 ```
 
-Navigate to 
+Navigate in your browser to:
 
 ```
 localhost:3000
