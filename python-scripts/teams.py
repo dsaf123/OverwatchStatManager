@@ -28,8 +28,9 @@ for i in data['competitors']:
     elif i['competitor']['owl_division'] == 79:
         division = "Atlantic"
     tmpdata = [i['competitor']['name'], i['competitor']['id'], division, i['competitor']['icon'], i['competitor']['primaryColor'], i['competitor']['secondaryColor'], i['competitor']['homeLocation']]
-    query = 'update Team set Logo = \'' + i['competitor']['icon'] + "\' WHERE Name=\'" + i['competitor']['name'] + "\'"
-    c.execute(query)
+    query = 'update Team set Logo = \'' + i['competitor']['icon'] + "\', Division = \'" + division + "\', PrimaryColor = \'" + i['competitor']['primaryColor'] +"\', SecondaryColor = \'" + i['competitor']['secondaryColor'] + "\' WHERE Name=\'" + i['competitor']['name'] + "\'"
+
     #c.execute('insert into Team (Name, TeamID, Division, Logo, PrimaryColor, SecondaryColor, Location) values (?,?,?,?,?,?,?)', tmpdata)
+    c.execute(query)
 db.commit()
 db.close()

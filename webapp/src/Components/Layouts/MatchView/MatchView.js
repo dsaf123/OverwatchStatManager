@@ -6,6 +6,7 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TeamCard from '../TeamCard'
+import NavTabs from './NavTabs'
 
 const styles = theme => ({
     root: {
@@ -36,11 +37,7 @@ class MatchView extends React.Component {
             ms: {},
             team1: {},
             team2: {},
-            map1: {},
-            map2: {},
-            map3: {},
-            map4: {},
-            map5: {},
+
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -66,19 +63,34 @@ class MatchView extends React.Component {
 
       }
       map1 = _ => {
-        console.log(this.state.map1)
+        if (this.state.map1[0] != undefined) {
+          return <Typography variant="h4">{this.state.map1[0].Name}</Typography>
+        }
+        return
       }
       map2 = _ => {
-        console.log(this.state.map2)
+        if (this.state.map2[0] != undefined) {
+          return <Typography variant="h4">{this.state.map2[0].Name}</Typography>
+        }
+        return
       }
       map3 = _ => {
-        console.log(this.state.map3)
+        if (this.state.map3[0] != undefined) {
+          return <Typography variant="h4">{this.state.map3[0].Name}</Typography>
+        }
+        return
       }
       map4 = _ => {
-        console.log(this.state.map4)
+        if (this.state.map4[0] != undefined) {
+          return <Typography variant="h4">{this.state.map4[0].Name}</Typography>
+        }
+        return
       }
       map5 = _ => {
-        console.log(this.state.map5)
+        if (this.state.map5[0] != undefined) {
+          return <Typography variant="h4">{this.state.map5[0].Name}</Typography>
+        }
+        return
       }
       getPlayerStats = _ => {
         fetch(`http://localhost:${port}/players`)
@@ -140,18 +152,13 @@ class MatchView extends React.Component {
       console.log(team1nn)
       return (
         <Fragment>
+
             <Grid container justify="center" alignItems="center" spacing={16}>
                 <Grid container justify="center" alignItems="center" spacing={16}>
                   <Grid item>{this.team1()}</Grid>
                   <Grid item>{this.team2()}</Grid>
                 </Grid>
-                <Grid container justify="center" alignItems="center" spacing={16}>
-                  <Grid item>{this.map1()}</Grid>
-                  <Grid item>{this.map2()}</Grid>
-                  <Grid item>{this.map3()}</Grid>
-                  <Grid item>{this.map4()}</Grid>
-                  <Grid item>{this.map5()}</Grid>
-                </Grid>
+                <Grid item><NavTabs t1={this.state.team1} t2={this.state.team2} match={this.props.match} /></Grid>
             </Grid>
         </Fragment>
       )

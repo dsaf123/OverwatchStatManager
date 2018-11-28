@@ -68,6 +68,7 @@ for i in range(10223,10634):
                 response2 = urllib.request.urlopen(tmpurl2)
                 statdata = json.loads(response2.read())
                 print("\t", statdata['game_number'], end=" ")
+
                 for k in statdata['teams']:
                     for l in k["players"]:
                         for m in l["heroes"]:

@@ -73,7 +73,7 @@ app.get('/matches/match', (req, res) => {
 
 app.get('/matches/match/1', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn WHERE Match.MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='1'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='1'`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -84,7 +84,7 @@ app.get('/matches/match/1', (req, res) => {
 });
 app.get('/matches/match/2', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='2'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='2'`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -96,7 +96,7 @@ app.get('/matches/match/2', (req, res) => {
 
 app.get('/matches/match/3', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='3'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='3'`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -108,7 +108,7 @@ app.get('/matches/match/3', (req, res) => {
 
 app.get('/matches/match/4', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='4'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='4'`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -120,7 +120,7 @@ app.get('/matches/match/4', (req, res) => {
 
 app.get('/matches/match/5', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn WHERE MatchID='${match}' and MatchID=PlayedOn.Match and MapNumber='5'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='5'`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
