@@ -34,7 +34,7 @@ npm install
 node index.js
 ```
 
-Open a new terminal and navigate back to the repository
+Open a new terminal and navigate back to the repository.
 Setup and start the web server
 
 ```
