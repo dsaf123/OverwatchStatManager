@@ -53,6 +53,7 @@ class HeroTable extends React.Component {
 
     };
   componentDidMount() {
+    this.updateStats()
     console.log("MOUNTED")
   }
   updateStats() {

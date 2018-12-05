@@ -235,12 +235,12 @@ class IntegrationReactSelect extends React.Component {
   handleChange = name => value => {
     this.setState({
       [name]: value,
-    });
-    console.log(this.state.playerss.filter(word => word.label === value).length)
-    if (this.state.playerss.filter(word => word.label === value.label).length === 1)
-    {
-      this.props.onChange(value);
-    }
+    }, () => {console.log(this.state.playerss.filter(word => word.label === value).length)
+        if (this.state.playerss.filter(word => word.label === value.label).length === 1)
+        {
+          this.props.onChange(value);
+        }});
+
   };
 
   render() {

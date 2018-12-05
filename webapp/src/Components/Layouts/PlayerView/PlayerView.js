@@ -58,18 +58,20 @@ class PlayerView extends React.Component {
         fetch(`http://localhost:${port}/players`)
         .then(response => response.json())
         .then(response => this.setState({ players: response.data}))
-        .then(this.getHeroStats())
+        .then(this.getHeroStats({value: "Muma", label: "Muma"}))
         .catch(err => console.error(err))
       }
-      getHeroStats = _ => {
-        fetch(`http://localhost:${port}/herostats/player?player=${this.state.value.label}`)
+      getHeroStats = (val) => {
+        console.log(this.state.value.label)
+        fetch(`http://localhost:${port}/herostats/player?player=${val.value}`)
         .then(response => response.json())
         .then(response => this.setState({hs: response.data}))
         .catch(err => console.error(err))
       }
       handleChange(val) {
-        this.setState({value: val})
-        this.getHeroStats(val);
+        console.log(val)
+        this.setState({value: val}, this.getHeroStats(val))
+        ;
       }
 
 
