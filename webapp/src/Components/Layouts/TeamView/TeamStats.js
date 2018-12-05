@@ -49,6 +49,9 @@ class TeamTable extends React.Component {
     super(props);
   }
   getColor(winner, team) {
+    console.log("TEST")
+    console.log(winner)
+    console.log(team)
     if (winner===team)
     {
       return { background: "#69f0ae"}
@@ -82,6 +85,9 @@ class TeamTable extends React.Component {
           </TableHead>
           <TableBody>
             {this.props.ms.map(row => {
+              console.log(row)
+              console.log(row.Team1Name)
+              console.log(this.props.team)
               return (
                 <TableRow key={row.id} style={{...this.getColor(row.Winner, (row.Team1Name===this.props.team ? row.Team1ID : row.TeamID))}}>
                   <TableCell numeric><img height={60} width={60} src={row.Team1Logo}/></TableCell>

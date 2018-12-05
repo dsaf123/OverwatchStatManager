@@ -158,7 +158,7 @@ class TeamView extends React.Component {
                   <Paper><Typography variant="h4">Matches</Typography></Paper>
                 </Grid>
                 <Grid item>
-                  <TeamStats topChange={this.props.topChange} ms={this.state.ms} team={this.state.Team} bg1={this.state.bg1} bg2={this.state.bg2}/>
+                  <TeamStats topChange={this.props.topChange} ms={this.state.ms} team={this.state.value.value} bg1={this.state.bg1} bg2={this.state.bg2}/>
                 </Grid>
          </Grid>
          </div>

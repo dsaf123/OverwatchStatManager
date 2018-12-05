@@ -24,6 +24,17 @@ app.get('/players', (req, res) => {
     });
   })
 });
+app.get('/players/player', (req, res) => {
+  const {player} = req.query;
+  db.all(`SELECT * FROM Player where PlayerID=${player}`, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    }
+    return res.json({
+      data: rows
+    });
+  })
+});
 
 app.get('/teams', (req, res) => {
   db.all('SELECT * FROM Team', [], (err, rows) => {
@@ -73,7 +84,7 @@ app.get('/matches/match', (req, res) => {
 
 app.get('/matches/match/1', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='1'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Player, Match, PlayedOn, MapInstance, PlayersTeam WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and Player.PlayerID = PlayedOn.Player and PlayedOn.MapNumber='1' and PlayersTeam.PlayerID=PlayedOn.Player`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -84,7 +95,7 @@ app.get('/matches/match/1', (req, res) => {
 });
 app.get('/matches/match/2', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='2'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Player, Match, PlayedOn, MapInstance, PlayersTeam WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and Player.PlayerID = PlayedOn.Player and PlayedOn.MapNumber='2' and PlayersTeam.PlayerID=PlayedOn.Player`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -96,7 +107,7 @@ app.get('/matches/match/2', (req, res) => {
 
 app.get('/matches/match/3', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='3'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Player, Match, PlayedOn, MapInstance, PlayersTeam WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and Player.PlayerID = PlayedOn.Player and PlayedOn.MapNumber='3' and PlayersTeam.PlayerID=PlayedOn.Player`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -108,7 +119,7 @@ app.get('/matches/match/3', (req, res) => {
 
 app.get('/matches/match/4', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='4'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Player, Match, PlayedOn, MapInstance, PlayersTeam WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and Player.PlayerID = PlayedOn.Player and PlayedOn.MapNumber='4' and PlayersTeam.PlayerID=PlayedOn.Player`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }
@@ -120,7 +131,7 @@ app.get('/matches/match/4', (req, res) => {
 
 app.get('/matches/match/5', (req, res) => {
   const {match} = req.query
-  db.all(`SELECT * FROM Match, PlayedOn, MapInstance WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and PlayedOn.MapNumber='5'`, [], (err, rows) => {
+  db.all(`SELECT * FROM Player, Match, PlayedOn, MapInstance, PlayersTeam WHERE Match.MatchID='${match}' and Match.MatchID=PlayedOn.Match and Match.MatchID=MapInstance.MatchID and MapInstance.Number = PlayedOn.MapNumber and Player.PlayerID = PlayedOn.Player and PlayedOn.MapNumber='5' and PlayersTeam.PlayerID=PlayedOn.Player`, [], (err, rows) => {
     if (err) {
       console.error(err.message);
     }

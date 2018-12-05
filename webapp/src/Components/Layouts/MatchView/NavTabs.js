@@ -7,6 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import MatchInfo from './MatchInfo'
+import MiniCard from '../MiniCard'
+import MapStats from './MapStats'
 
 function TabContainer(props) {
   return (
@@ -89,6 +91,7 @@ class NavTabs extends React.Component {
           mapname3: "",
           mapname4: "",
           mapname5: "",
+          team1: "",
       };
 
   }
@@ -144,48 +147,256 @@ class NavTabs extends React.Component {
     if (this.state.map1[0] != undefined) {
       this.state.mapname1 = this.state.map1[0].Name
       var team = {}
-
+      this.state.team1 = this.state.map1[0].Team1
       for (var index in this.state.map1) {
         team[this.state.map1[index].Player] = []
       }
       for (var index in this.state.map1) {
-        team[this.state.map1[index].Player].push(this.state.map1[index])
+        var isIn = false
+        for (var stuff in team[this.state.map1[index].Player]){
+          console.log(team[this.state.map1[index].Player][stuff])
+          if (team[this.state.map1[index].Player][stuff].Hero === this.state.map1[index].Hero) {
+            isIn = true
+          }
+        }
+        if (!isIn) {
+          team[this.state.map1[index].Player].push(this.state.map1[index]);
+        }
       }
 
-    return <Grid container justify="center" alignItems="center" spacing={16}>{Object.keys(team).map(item => {
-      return Object.keys(team[item]).map(dat => {
-        console.log(team[item][dat].Hero)
-          return <Grid item xs={12}><Typography variant='h4'>{team[item][dat].Hero}</Typography></Grid>;
-        });
-      })}</Grid>
+
+    return <Grid container justify="center" alignItems="top" spacing={16} direction="row"><Grid item xs={6}>{Object.keys(team).map(item => {
+      if (team[item][0]['TeamID'] === this.state.team1){
+          return <Grid item>
+                    <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                        <Grid item>
+                          <MiniCard player={team[item][0]} />
+                        </Grid>
+                        <Grid item>
+                          <MapStats hs={team[item]}/>
+                        </Grid>
+                    </Grid>
+                  </Grid>}
+      })}</Grid><Grid item xs={6}>{Object.keys(team).map(item => {
+        console.log(team[item])
+        if (team[item][0]['TeamID'] != this.state.team1){
+            return <Grid item>
+                      <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                          <Grid item>
+                            <MiniCard player={team[item][0]} />
+                          </Grid>
+                          <Grid item>
+                            <MapStats hs={team[item]}/>
+                          </Grid>
+                      </Grid>
+                    </Grid>}
+
+        })}</Grid></Grid>
     }
   }
   map2 = _ => {
     if (this.state.map2[0] != undefined) {
       this.state.mapname2 = this.state.map2[0].Name
+      var team = {}
+      this.state.team1 = this.state.map2[0].Team1
+      for (var index in this.state.map2) {
+        team[this.state.map2[index].Player] = []
+      }
+      for (var index in this.state.map2) {
+        var isIn = false
+        for (var stuff in team[this.state.map2[index].Player]){
+          console.log(team[this.state.map2[index].Player][stuff])
+          if (team[this.state.map2[index].Player][stuff].Hero === this.state.map2[index].Hero) {
+            isIn = true
+          }
+        }
+        if (!isIn) {
+          team[this.state.map2[index].Player].push(this.state.map2[index]);
+        }
+      }
 
+
+    return <Grid container justify="center" alignItems="top" spacing={16} direction="row"><Grid item xs={6}>{Object.keys(team).map(item => {
+      if (team[item][0]['TeamID'] === this.state.team1){
+          return <Grid item>
+                    <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                        <Grid item>
+                          <MiniCard player={team[item][0]} />
+                        </Grid>
+                        <Grid item>
+                          <MapStats hs={team[item]}/>
+                        </Grid>
+                    </Grid>
+                  </Grid>}
+      })}</Grid><Grid item xs={6}>{Object.keys(team).map(item => {
+        console.log(team[item])
+        if (team[item][0]['TeamID'] != this.state.team1){
+            return <Grid item>
+                      <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                          <Grid item>
+                            <MiniCard player={team[item][0]} />
+                          </Grid>
+                          <Grid item>
+                            <MapStats hs={team[item]}/>
+                          </Grid>
+                      </Grid>
+                    </Grid>}
+
+        })}</Grid></Grid>
     }
-    return
   }
   map3 = _ => {
     if (this.state.map3[0] != undefined) {
       this.state.mapname3 = this.state.map3[0].Name
+      var team = {}
+      this.state.team1 = this.state.map3[0].Team1
+      for (var index in this.state.map3) {
+        team[this.state.map3[index].Player] = []
+      }
+      for (var index in this.state.map3) {
+        var isIn = false
+        for (var stuff in team[this.state.map3[index].Player]){
+          console.log(team[this.state.map3[index].Player][stuff])
+          if (team[this.state.map3[index].Player][stuff].Hero === this.state.map3[index].Hero) {
+            isIn = true
+          }
+        }
+        if (!isIn) {
+          team[this.state.map3[index].Player].push(this.state.map3[index]);
+        }
+      }
+
+
+    return <Grid container justify="center" alignItems="top" spacing={16} direction="row"><Grid item xs={6}>{Object.keys(team).map(item => {
+      if (team[item][0]['TeamID'] === this.state.team1){
+          return <Grid item>
+                    <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                        <Grid item>
+                          <MiniCard player={team[item][0]} />
+                        </Grid>
+                        <Grid item>
+                          <MapStats hs={team[item]}/>
+                        </Grid>
+                    </Grid>
+                  </Grid>}
+      })}</Grid><Grid item xs={6}>{Object.keys(team).map(item => {
+        console.log(team[item])
+        if (team[item][0]['TeamID'] != this.state.team1){
+            return <Grid item>
+                      <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                          <Grid item>
+                            <MiniCard player={team[item][0]} />
+                          </Grid>
+                          <Grid item>
+                            <MapStats hs={team[item]}/>
+                          </Grid>
+                      </Grid>
+                    </Grid>}
+
+        })}</Grid></Grid>
     }
-    return
   }
   map4 = _ => {
     if (this.state.map4[0] != undefined) {
       this.state.mapname4 = this.state.map4[0].Name
+      var team = {}
+      this.state.team1 = this.state.map4[0].Team1
+      for (var index in this.state.map4) {
+        team[this.state.map4[index].Player] = []
+      }
+      for (var index in this.state.map4) {
+        var isIn = false
+        for (var stuff in team[this.state.map4[index].Player]){
+          console.log(team[this.state.map4[index].Player][stuff])
+          if (team[this.state.map4[index].Player][stuff].Hero === this.state.map4[index].Hero) {
+            isIn = true
+          }
+        }
+        if (!isIn) {
+          team[this.state.map4[index].Player].push(this.state.map4[index]);
+        }
+      }
 
+
+    return <Grid container justify="center" alignItems="top" spacing={16} direction="row"><Grid item xs={6}>{Object.keys(team).map(item => {
+      if (team[item][0]['TeamID'] === this.state.team1){
+          return <Grid item>
+                    <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                        <Grid item>
+                          <MiniCard player={team[item][0]} />
+                        </Grid>
+                        <Grid item>
+                          <MapStats hs={team[item]}/>
+                        </Grid>
+                    </Grid>
+                  </Grid>}
+      })}</Grid><Grid item xs={6}>{Object.keys(team).map(item => {
+        console.log(team[item])
+        if (team[item][0]['TeamID'] != this.state.team1){
+            return <Grid item>
+                      <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                          <Grid item>
+                            <MiniCard player={team[item][0]} />
+                          </Grid>
+                          <Grid item>
+                            <MapStats hs={team[item]}/>
+                          </Grid>
+                      </Grid>
+                    </Grid>}
+
+        })}</Grid></Grid>
     }
-    return
   }
   map5 = _ => {
     if (this.state.map5[0] != undefined) {
       this.state.mapname5 = this.state.map5[0].Name
+      var team = {}
+      this.state.team1 = this.state.map5[0].Team1
+      for (var index in this.state.map5) {
+        team[this.state.map1[index].Player] = []
+      }
+      for (var index in this.state.map5) {
+        var isIn = false
+        for (var stuff in team[this.state.map5[index].Player]){
+          console.log(team[this.state.map5[index].Player][stuff])
+          if (team[this.state.map5[index].Player][stuff].Hero === this.state.map5[index].Hero) {
+            isIn = true
+          }
+        }
+        if (!isIn) {
+          team[this.state.map5[index].Player].push(this.state.map5[index]);
+        }
+      }
 
+
+    return <Grid container justify="center" alignItems="top" spacing={16} direction="row"><Grid item xs={6}>{Object.keys(team).map(item => {
+      if (team[item][0]['TeamID'] === this.state.team1){
+          return <Grid item>
+                    <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                        <Grid item>
+                          <MiniCard player={team[item][0]} />
+                        </Grid>
+                        <Grid item>
+                          <MapStats hs={team[item]}/>
+                        </Grid>
+                    </Grid>
+                  </Grid>}
+      })}</Grid><Grid item xs={6}>{Object.keys(team).map(item => {
+        console.log(team[item])
+        if (team[item][0]['TeamID'] != this.state.team1){
+            return <Grid item>
+                      <Grid container justify="left" alignItems="center" spacing={16} direction="row">
+                          <Grid item>
+                            <MiniCard player={team[item][0]} />
+                          </Grid>
+                          <Grid item>
+                            <MapStats hs={team[item]}/>
+                          </Grid>
+                      </Grid>
+                    </Grid>}
+
+        })}</Grid></Grid>
     }
-    return
   }
   map5nav = _ => {
       if (this.state.map5[0] != undefined) {

@@ -115,7 +115,7 @@ class TeamView extends React.Component {
                   <Paper><Typography variant="h4"> Matches </Typography></Paper>
                 </Grid>
                 <Grid item>
-                  <TeamStats ms={this.state.ms} team={this.state.Team}/>
+                  <TeamStats ms={this.state.ms} team={this.state.value.value}/>
                 </Grid>
          </Grid>
          </div>

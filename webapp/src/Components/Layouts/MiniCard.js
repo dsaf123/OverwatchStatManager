@@ -12,36 +12,61 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = {
   card: {
-    width: 200,
+    width: 150,
     maxHeight: 150,
   },
   media: {
-    height: 300
+    height: 150,
+    width: 150,
   },
 };
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
 
-function MediaCard(props) {
+class MediaCard extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          value: {value:"Houston Outlaws", label:"Houston Outlaws"},
+          Teams: [],
+          Team: "Houston Outlaws",
+          ts: [],
+          ms: [],
+          bg: "#000",
+          player: [],
+      };
+      console.log(this.props.player.PlayerID)
+      this.getPlayer(this.props.player.PlayerID)
+    }
+  getPlayer = (player) => {
+      fetch(`http://localhost:${port}/players/player?player=${player}`)
+      .then(response => response.json())
+      .then(response => this.setState({ player: response.data, playerName: response.data[0].Name}, () => {console.log(this.state.player)}))
+      .catch(err => console.error(err))
+    }
+
+  render() {
+      console.log(this.state.player)
   return (
-    <Card className={props.card} root={styles.card}>
+    <Card className={this.props.card} root={styles.card}>
       <CardActionArea>
         <CardMedia
-          className={props.media}
-          image={props.player.Picture}
-          title={props.player.Name}
+          className={this.props.media}
+          image={this.props.player.Picture}
+          title={this.props.player.Name}
           style={styles.media}
         />
         <CardContent style={styles.card}>
           <Grid>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.player.Name}
-            </Typography>
+          <Typography gutterBottom variant="subheading" component="h2">
+            {this.state.playerName}
+          </Typography>
             <Typography gutterBottom variant="subheading" component="h2">
-              {props.player.Role.charAt(0).toUpperCase() + props.player.Role.substr(1)}
+              {this.props.player.Role.charAt(0).toUpperCase() + this.props.player.Role.substr(1)}
             </Typography>
           </Grid>
 
           <Typography component="p">
-            {props.player.Team}
+            {this.props.player.Team}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -56,9 +81,7 @@ function MediaCard(props) {
     </Card>
   );
 }
+}
 
-MediaCard.propTypes = {
-  props: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(MediaCard);

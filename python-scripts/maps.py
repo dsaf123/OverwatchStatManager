@@ -35,7 +35,7 @@ for i in range(10223,10634):
         data = json.loads(response.read())
         if (data['bracket']['stage']['tournament']['attributes']['program']['type'] == "owl"):
             print(ctr, ":", data['id'], data['competitors'][0]['name'], "vs", data['competitors'][1]['name'], data['scores'][0]['value'], "-", data['scores'][1]['value'], data['startDate'], data['winner']['name'])
-            matchdata = [data['id'], data['competitors'][0]['id'], data['competitors'][1]['id'], str(data['scores'][0]) + '-' + str(data['scores'][1]), data['winner']['id']]
+            matchdata = [data['id'], data['competitors'][0]['id'], data['competitors'][1]['id'], str(data['scores'][0]['value']) + '-' + str(data['scores'][1]['value']), data['winner']['id']]
             try:
                 c.execute('insert into Match (MatchID, Team1, Team2, Score, Winner) VALUES (?,?,?,?,?)', matchdata)
             except:
