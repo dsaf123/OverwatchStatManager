@@ -42,6 +42,7 @@ for i in range(10223,10634):
                 print("error")
             for j in data['games']:
                 for k in j["players"]:
+                    t=k['team']
                     k=k['player']
                     tmpdata = [k['id'], k['handle'], k['name'],k['homeLocation'],k['attributes']['player_number'], k['attributes']['role'], k['headshot']]
                     print("Here")
@@ -59,7 +60,13 @@ for i in range(10223,10634):
                                 c.execute("INSERT INTO STATS (Player, Hero, Damage, Deaths, Eliminations, Healing, FinalBlows, Ultimates, Time) values (?,?,?,?,?,?,?,?,?)", ptmpdata)
                             except:
                                 print("SOMETHING WEIRD HAPPENED")
-                    except:
+                    except Exception as e:
+                        print(e)
+                    try:
+                        print(k['id'], t['id'])
+                        c.execute('INSERT INTO PlayersTeam (PlayerID, TeamID) VALUES (?,?)', [k['id'], t['id']])
+                    except Exception as e:
+                        print(e)
                         pass
 
 
