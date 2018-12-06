@@ -50,19 +50,24 @@ localhost:3000
 ```
 
 ### Getting the Data
+
 All data is already stored in `dbapp\owdb.db`. If you would like to regenerate the data just run the following files located in `python-scripts`.
 
 ```
 player.py
 teams.py
-matches.py
 maps.py
-stats.py
+mapinstance.py
 ```
+
+### Manually Editing the Data
+
+You can use `console.py` located in `python-scripts` to manually insert, delete or modify the data in the database.
 
 ## Built With
 
-* [Node.js](https://nodejs.org/en/) - The web framework used
+* [Node.js](https://nodejs.org/en/) - Javascript runtime environment.
+* [React](https://reactjs.org/) - User Interface.
 
 ## Authors
 

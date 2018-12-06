@@ -17,7 +17,7 @@ def create_connection(db_file):
 
     return None
 
-db = create_connection("owdb.db")
+db = create_connection("..\dbapp\owdb.db")
 c = db.cursor()
 mapurl = "https://api.overwatchleague.com/maps"
 staturl = "https://api.overwatchleague.com/stats/matches/"
